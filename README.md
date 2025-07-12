@@ -11,6 +11,9 @@ This repository contains bioinformatic and statistical workflows to investigate 
 **Key Tools**: DIAMOND BLASTp, BLASTn, R  
 **Objective**: Analyze conservation, functional roles, and evolutionary relationships of OmpA-like domains.
 
----
+## Key Hypotheses Tested
+1. Each species encodes multiple OmpA-like domain-containing proteins
+2. A subset shows significant sequence similarity across species
+3. Proteins with similar functions show higher sequence conservation
+4. Some conserved proteins originate from distinct genetic backgrounds
 
-## Repository Structure
