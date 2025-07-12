@@ -59,3 +59,10 @@ OmpA-like domain sequences were obtained from:
 **Exclusion**:  
 OMPA_1 (PS01068) was excluded due to lower number of hits (56) and pattern-based search limitations.
 
+## References
+
+Sigrist, C.J.A., de Castro, E., Cerutti, L., Cuche, B.A., Hulo, N., Bridge, A., Bougueleret, L. and Xenarios, I. (2013) 'New and continuing developments at PROSITE', Nucleic Acids Research, 41(Database issue), pp. D344–D347. doi:10.1093/nar/gks1067.<img width="468" height="76" alt="image" src="https://github.com/user-attachments/assets/dd5419aa-cd12-4cb9-b933-a3f82a65f168" />
+
+
+
+
