@@ -31,3 +31,31 @@ This repository contains bioinformatic and statistical workflows to investigate 
 ### 3. Figures
 - See genomics-figures-script.R for creation of figures
 
+## Data Provenance
+
+### Genome Data Sources
+All bacterial genome data was obtained from **NCBI RefSeq** with the following accession numbers:
+
+| Species | Strain | Assembly Accession | Size | Data Type |
+|---------|--------|--------------------|------|-----------|
+| _Acinetobacter baumannii_ | ATCC 19606 | GCF_009035845.1 | 4 Mb | Complete genome |
+| _Escherichia coli_ | K-12 substr. MG1655 | GCF_000005845.2 | 4.6 Mb | Complete genome |
+| _Klebsiella pneumoniae_ | subsp. pneumoniae HS11286 | GCF_000240185.1 | 5.7 Mb | Complete genome |
+| _Pseudomonas aeruginosa_ | PAO1 | GCF_000006765.1 | 6.3 Mb | Complete genome |
+| _Vibrio cholerae_ | RFB16 | GCF_008369605.1 | 4.1 Mb | Complete genome |
+
+**Download method**:  
+All genomes were downloaded using NCBI Datasets with the following file types:
+- Protein sequences (FASTA format)
+- Annotation features (GFF format)
+
+### Protein Domain Data
+OmpA-like domain sequences were obtained from:
+- **PROSITE database** (Expasy)  
+  - Profile: PS51123 (OMPA_2)  
+  - 82 sequences with 0 false positives  
+  - Retrieved using ScanProsite tool  
+
+**Exclusion**:  
+OMPA_1 (PS01068) was excluded due to lower number of hits (56) and pattern-based search limitations.
+
