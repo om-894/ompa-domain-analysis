@@ -61,6 +61,9 @@ OMPA_1 (PS01068) was excluded due to lower number of hits (56) and pattern-based
 
 ## References
 
+De Castro, E., Sigrist, C.J.A., Gattiker, A., Bulliard, V., Langendijk-Genevaux, P.S., Gasteiger, E., Bairoch, A. and Hulo, N., 2006. ScanProsite: detection of PROSITE signature matches and ProRule-associated functional and structural residues in proteins. Nucleic Acids Research, 34(Web Server issue), pp.W362–W365. https://doi.org/10.1093/nar/gkl124<img width="468" height="89" alt="image" src="https://github.com/user-attachments/assets/17143e21-8a91-4689-ab7e-2b33424fb638" />
+
+
 Sigrist, C.J.A., de Castro, E., Cerutti, L., Cuche, B.A., Hulo, N., Bridge, A., Bougueleret, L. and Xenarios, I. (2013) 'New and continuing developments at PROSITE', Nucleic Acids Research, 41(Database issue), pp. D344–D347. doi:10.1093/nar/gks1067.<img width="468" height="76" alt="image" src="https://github.com/user-attachments/assets/dd5419aa-cd12-4cb9-b933-a3f82a65f168" />
 
 
