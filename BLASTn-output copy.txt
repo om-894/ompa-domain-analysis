@@ -1,0 +1,315 @@
+
+
+
+
+
+Query= NC_000913.3:779067-779588 pal [organism=Escherichia coli str. K-12
+substr. MG1655] [GeneID=945004] [chromosome=]
+
+Length=522
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+NC_016845.1:1647225-1647749 KPHS_15830 [organism=Klebsiella pneum...  684     0.0  
+
+
+>NC_016845.1:1647225-1647749 KPHS_15830 [organism=Klebsiella pneumoniae 
+subsp. pneumoniae HS11286] [GeneID=11846591] [chromosome=]
+Length=525
+
+ Score = 684 bits (370),  Expect = 0.0
+ Identities = 474/525 (90%), Gaps = 3/525 (1%)
+ Strand=Plus/Plus
+
+Query  1    ATGCAACTGAACAAAGTGCTGAAAGGGCTGATGATTGCTCTGCCTGTTATGGCAATTGCG  60
+            ||||||||||||||||||||||||||||||||||| |||||||| ||||||||||| |||
+Sbjct  1    ATGCAACTGAACAAAGTGCTGAAAGGGCTGATGATCGCTCTGCCGGTTATGGCAATCGCG  60
+
+Query  61   GCATGTTCTTCCAACAAGAACGCCAGCAATGAC--G-GCAGCGAAGGCATGCTGGGTGCC  117
+            ||||||||||| ||||||||||||||||| |||  | || | ||||||||||||||||||
+Sbjct  61   GCATGTTCTTCTAACAAGAACGCCAGCAACGACCAGAGCGGTGAAGGCATGCTGGGTGCC  120
+
+Query  118  GGCACTGGTATGGATGCGAACGGCGGCAACGGCAACATGTCTTCCGAAGAGCAGGCTCGT  177
+            |||||||||||||| || |||||   |  ||||||||||||||| |||||||| ||||||
+Sbjct  121  GGCACTGGTATGGACGCTAACGGTAACGGCGGCAACATGTCTTCTGAAGAGCAAGCTCGT  180
+
+Query  178  CTGCAAATGCAACAGCTGCAGCAGAACAACATCGTTTACTTCGATCTGGACAAGTACGAT  237
+            ||||| ||||| ||||||||||||||||||||||||||||||||||| ||||||||||||
+Sbjct  181  CTGCAGATGCAGCAGCTGCAGCAGAACAACATCGTTTACTTCGATCTCGACAAGTACGAT  240
+
+Query  238  ATCCGTTCTGACTTCGCTCAAATGCTGGATGCACATGCAAACTTCCTGCGTAGCAACCCG  297
+            ||||||||||||||||||   |||||||| || || || ||||||||||| |||||||||
+Sbjct  241  ATCCGTTCTGACTTCGCTGCTATGCTGGACGCGCACGCTAACTTCCTGCGCAGCAACCCG  300
+
+Query  298  TCTTACAAAGTCACCGTAGAAGGTCACGCGGACGAACGTGGTACTCCGGAATACAACATC  357
+            || |||||||| || ||||||||||||||||| || || ||||| |||||||||||||||
+Sbjct  301  TCCTACAAAGTGACTGTAGAAGGTCACGCGGATGAGCGCGGTACGCCGGAATACAACATC  360
+
+Query  358  TCCCTGGGTGAACGTCGTGCGAACGCCGTTAAGATGTACCTGCAGGGTAAAGGCGTTTCT  417
+             | |||||||| |||||||| ||||||||||||||||| |||||||| ||||| ||||||
+Sbjct  361  GCTCTGGGTGAGCGTCGTGCTAACGCCGTTAAGATGTATCTGCAGGGCAAAGGTGTTTCT  420
+
+Query  418  GCAGACCAGATCTCCATCGTTTCTTACGGTAAAGAAAAACCTGCAGTACTGGGTCATGAC  477
+            || || ||||||||||||||||||||||||||||||||||| ||||||||||||||||||
+Sbjct  421  GCCGATCAGATCTCCATCGTTTCTTACGGTAAAGAAAAACCAGCAGTACTGGGTCATGAC  480
+
+Query  478  GAAGCGGCATACTCCAAAAACCGTCGTGCGGTACTGGTTTACTAA  522
+            |||||||||||  ||||||||||||| || |||||||||||||||
+Sbjct  481  GAAGCGGCATATGCCAAAAACCGTCGCGCCGTACTGGTTTACTAA  525
+
+
+
+Lambda      K        H
+    1.33    0.621     1.12 
+
+Gapped
+Lambda      K        H
+    1.28    0.460    0.850 
+
+Effective search space used: 13872496
+
+
+Query= NC_000913.3:c1020053-1019013 ompA [organism=Escherichia coli str.
+K-12 substr. MG1655] [GeneID=945571] [chromosome=]
+
+Length=1041
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+NC_016845.1:c1937408-1936314 KPHS_18650 [organism=Klebsiella pneu...  1003    0.0  
+
+
+>NC_016845.1:c1937408-1936314 KPHS_18650 [organism=Klebsiella 
+pneumoniae subsp. pneumoniae HS11286] [GeneID=11846880] [chromosome=]
+Length=1095
+
+ Score = 1003 bits (543),  Expect = 0.0
+ Identities = 901/1072 (84%), Gaps = 32/1072 (3%)
+ Strand=Plus/Plus
+
+Query  1     ATGAAAAAGACAGCTATCGCGATTGCAGTGGCACTGGCTGGTTTCGCTACCGTAGCGCAG  60
+             ||||||||||||||||||||||||||||||||||||||||| ||||||||||||||||||
+Sbjct  25    ATGAAAAAGACAGCTATCGCGATTGCAGTGGCACTGGCTGGCTTCGCTACCGTAGCGCAG  84
+
+Query  61    GCCGCTCCGAAAGATAACACCTGGTACACTGGTGCTAAACTGGGCTGGTCCCAGTACCAT  120
+             ||||||||||||||||||||||||||  | |||| ||||||||| ||||||||||| || 
+Sbjct  85    GCCGCTCCGAAAGATAACACCTGGTATGCAGGTGGTAAACTGGGTTGGTCCCAGTATCAC  144
+
+Query  121   GACACTGGTTTC-------A-----T-C--AACAACAATGGCCCGACCCATGAAAACCAA  165
+             ||||| ||||||       |     | |  |||||||| || ||||||| | |  | || 
+Sbjct  145   GACACCGGTTTCTACGGTAACGGTTTCCAGAACAACAACGGTCCGACCCGTAACGATCAG  204
+
+Query  166   CTGGGCGCTGGTGCTTTTGGTGGTTACCAGGTTAACCCGTATGTTGGCTTTGAAATGGGT  225
+             || || |||||||| ||||||||||||||||||||||||||  | || || |||||||||
+Sbjct  205   CTTGGTGCTGGTGCGTTTGGTGGTTACCAGGTTAACCCGTACCTCGGTTTCGAAATGGGT  264
+
+Query  226   TACGACTGGTTAGGTCGTATGCCGTACAAAGGCAGCGTTGAAAACGGTGCATACAAAGCT  285
+             || |||||| | || |||||| | || |||||||||||||| |||||||| | |||||||
+Sbjct  265   TATGACTGGCTGGGCCGTATGGCATATAAAGGCAGCGTTGACAACGGTGCTTTCAAAGCT  324
+
+Query  286   CAGGGCGTTCAACTGACCGCTAAACTGGGTTACCCAATCACTGACGACCTGGACATCTAC  345
+             ||||||||||| ||||||||||||||||||||||| ||||||||||| ||||||||||||
+Sbjct  325   CAGGGCGTTCAGCTGACCGCTAAACTGGGTTACCCGATCACTGACGATCTGGACATCTAC  384
+
+Query  346   ACTCGTCTGGGTGGCATGGTATGGCGTGCAGACACTAAA-TC--CAACG-TT-TA-----  395
+             || |||||||| |||||||| ||||| || ||| | |||  |  | ||| || ||     
+Sbjct  385   ACCCGTCTGGGCGGCATGGTTTGGCGCGCTGACTCCAAAGGCAACTACGCTTCTACCGGC  444
+
+Query  396   ---T--GGTAAAAACCACGACACCGGCGTTTCTCCGGTCTTCGCTGGCGGTGTTGAGTAC  450
+                |   |||   | |||||||| |||||||| || || || |||||||| || ||||  
+Sbjct  445   GTTTCCCGTAGCGAACACGACACTGGCGTTTCCCCAGTATTTGCTGGCGGCGTAGAGTGG  504
+
+Query  451   GCGATCACTCCTGAAATCGCTACCCGTCTGGAATACCAGTGGACCAACAACATCGGTGAC  510
+             ||  | |||| ||| |||||||||||||||||||||||||||   ||||||||||| |||
+Sbjct  505   GCTGTTACTCGTGACATCGCTACCCGTCTGGAATACCAGTGGGTTAACAACATCGGCGAC  564
+
+Query  511   GCACACACCATCGGCACTCGTCCGGACAACGGCATGCTGAGCCTGGGTGTTTCCTACCGT  570
+             ||   |||  | || || ||||| || |||||||||||||||||||| ||||||||||| 
+Sbjct  565   GCGGGCACTGTGGGTACCCGTCCTGATAACGGCATGCTGAGCCTGGGCGTTTCCTACCGC  624
+
+Query  571   TTCGGTCAGGGCGAAGCAGCTCCAGTAGTTGCTCCGGCTCCAGCTCCGGCACCGGAAGTA  630
+             ||||||||||  || || || || || |||||||||||||| |||||||| |||||||| 
+Sbjct  625   TTCGGTCAGGAAGATGCTGCACCGGTTGTTGCTCCGGCTCCGGCTCCGGCTCCGGAAGTG  684
+
+Query  631   CAGACCAAGCACTTCACTCTGAAGTCTGACGTTCTGTTCAACTTCAACAAAGCAACCCTG  690
+                |||||||||||||| ||||||||||||||||||||||||||||||||||| ||||||
+Sbjct  685   GCTACCAAGCACTTCACCCTGAAGTCTGACGTTCTGTTCAACTTCAACAAAGCTACCCTG  744
+
+Query  691   AAACCGGAAGGTCAGGCTGCTCTGGATCAGCTGTACAGCCAGCTGAGCAACCTGGATCCG  750
+             |||||||||||||||   |||||||||||||||||||  |||||||||||| ||||||||
+Sbjct  745   AAACCGGAAGGTCAGCAGGCTCTGGATCAGCTGTACACTCAGCTGAGCAACATGGATCCG  804
+
+Query  751   AAAGACGGTTCCGTAGTTGTTCTGGGTTACACCGACCGCATCGGTTCTGACGCTTACAAC  810
+             |||||||||||||  ||||||||||| |||||||||||||||||||| || |||||||||
+Sbjct  805   AAAGACGGTTCCGCTGTTGTTCTGGGCTACACCGACCGCATCGGTTCCGAAGCTTACAAC  864
+
+Query  811   CAGGGTCTGTCCGAGCGCCGTGCTCAGTCTGTTGTTGATTACCTGATCTCCAAAGGTATC  870
+             |||   ||||| |||   ||||||||||| |||||||| |||||| |  | ||||| |||
+Sbjct  865   CAGCAGCTGTCTGAGAAACGTGCTCAGTCCGTTGTTGACTACCTGGTTGCTAAAGGCATC  924
+
+Query  871   CCGGCAGACAAGATCTCCGCACGTGGTATGGGCGAATCCAACCCGGTTACTGGCAACACC  930
+             ||||| | ||| |||||||| || || ||||| |||||||||||||||||||||||||||
+Sbjct  925   CCGGCTGGCAAAATCTCCGCTCGCGGCATGGGTGAATCCAACCCGGTTACTGGCAACACC  984
+
+Query  931   TGTGACAACGTGAAACAGCGTGCTGCACTGATCGACTGCCTGGCTCCGGATCGTCGCGTA  990
+             |||||||||||||||   || ||||| |||||||| |||||||||||||||||||| |||
+Sbjct  985   TGTGACAACGTGAAAGCTCGCGCTGCCCTGATCGATTGCCTGGCTCCGGATCGTCGTGTA  1044
+
+Query  991   GAGATCGAAGTTAAAGG-TATCAAAGACGTTGTAACTCAGCCGCAGGCTTAA  1041
+             ||||||||||||||||| || |||||| |||||||||||||||  |||||||
+Sbjct  1045  GAGATCGAAGTTAAAGGCTA-CAAAGAAGTTGTAACTCAGCCGGCGGCTTAA  1095
+
+
+
+Lambda      K        H
+    1.33    0.621     1.12 
+
+Gapped
+Lambda      K        H
+    1.28    0.460    0.850 
+
+Effective search space used: 28039168
+
+
+
+
+Query= NC_000913.3:3716547-3717206 yiaD [organism=Escherichia coli str.
+K-12 substr. MG1655] [GeneID=948075] [chromosome=]
+
+Length=660
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+  
+NC_016845.1:5088365-5089027 KPHS_50680 [organism=Klebsiella pneum...  477     3e-137
+
+
+>NC_016845.1:5088365-5089027 KPHS_50680 [organism=Klebsiella pneumoniae 
+subsp. pneumoniae HS11286] [GeneID=11850138] [chromosome=]
+Length=663
+
+ Score = 477 bits (258),  Expect = 3e-137
+ Identities = 525/658 (80%), Gaps = 2/658 (1%)
+ Strand=Plus/Plus
+
+Query  1    ATGAAGAAACGTGTTTATCTTATTGCCGCCGTAGTGAGTGGCGCTCTGGCGGTATCTGGC  60
+            ||||| ||||| ||   | | ||||| ||  | || || ||| |||||||  | ||||||
+Sbjct  1    ATGAAAAAACGCGTACTTATGATTGCGGCGCTGGTCAGCGGCACTCTGGCCATTTCTGGC  60
+
+Query  61   TGCACAACTAACCCTTACACCGGCGAACGCGAAGCAGGTAAATCTGCTATCGGCGCAGGT  120
+            ||||| || ||||| || ||||| ||||| |||||||| ||||| | ||| |||||||||
+Sbjct  61   TGCACCACCAACCCCTATACCGGTGAACGTGAAGCAGGCAAATCCGGTATTGGCGCAGGT  120
+
+Query  121  CTGGGCTCTCTCGTGGGCGCGGGTATTGGTGCGCTCTCTTCTTCGAAGAAAGATCGCGGT  180
+             | |||||  | |||||||| ||  | || |||||||| ||||| ||  | || ||||| 
+Sbjct  121  ATTGGCTCCTTAGTGGGCGCTGGCGTCGGCGCGCTCTCCTCTTCCAAACATGACCGCGGC  180
+
+Query  181  AAAGGCGCGCTGATTGGCGCAGCAGCAGGCGCAGCTCTGGGCGGCGGCGTTGGTTATTAC  240
+            ||||||||||||||||||||||| || ||||| || || ||||||||| ||||||| |||
+Sbjct  181  AAAGGCGCGCTGATTGGCGCAGCGGCCGGCGCGGCGCTCGGCGGCGGCATTGGTTACTAC  240
+
+Query  241  ATGGATGTGCAGGAAGCGAAGCTGCGCGACAAAATGCGCGGCACTGGTGTTAGCGTAACC  300
+            ||||| |||||||||||||||||||||||||||||||  || || || || ||||| || 
+Sbjct  241  ATGGACGTGCAGGAAGCGAAGCTGCGCGACAAAATGCAGGGAACCGGGGTCAGCGTGACG  300
+
+Query  301  CGCAGCGGGGATAACATTATCCTCAATATGCCGAACAATGTGACCTTCGACAGCAGCAGC  360
+            || |  || || || ||  | || || |||||||| || || |||||||||||||  |||
+Sbjct  301  CGAAATGGCGACAATATCGTGCTGAACATGCCGAATAACGTCACCTTCGACAGCAATAGC  360
+
+Query  361  GCGACCCTGAAACCGGCGGGCGCTAACACCCTGACCGGCGTGGCAATGGTACTGAAAGAG  420
+            || | |||||| ||||| ||||| |||||||||||||||||||| ||||| |||||||||
+Sbjct  361  GCCAACCTGAAGCCGGCCGGCGCCAACACCCTGACCGGCGTGGCCATGGTGCTGAAAGAG  420
+
+Query  421  TATCCGAAAACGGCGGTTAACGTGATTGGTTATACCGACAGCACGGGTGGTCACGACCTG  480
+            |||  |||||| || ||||||||| | || || ||||||||||| ||  |  | || |||
+Sbjct  421  TATGAGAAAACCGCTGTTAACGTGGTCGGCTACACCGACAGCACCGGCAGCAAGGATCTG  480
+
+Query  481  AACATGCGTCTCTCCCAGCAACGTGCGGATTCCGTTGCCAGCGCGTTGATCACCCAGGGC  540
+            || |||||||| || || || ||||||||   ||| ||||||||| | ||||||||||||
+Sbjct  481  AATATGCGTCTGTCGCAACAGCGTGCGGACAGCGTCGCCAGCGCGCTCATCACCCAGGGC  540
+
+Query  541  GTGGACGCCAGCCGCATCCGTACTCAG-GGCCTTGGCCCGGCTAACCCAATCGCCAGCAA  599
+            ||||  ||||  ||||| || || ||  ||| | |||||||| ||||| |||||||||||
+Sbjct  541  GTGGCGGCCAATCGCATTCGCAC-CACCGGCATGGGCCCGGCAAACCCGATCGCCAGCAA  599
+
+Query  600  CAGCACCGCAGAAGGTAAGGCGCAAAACCGCCGTGTAGAAATTACCTTAAGCCCGCTG  657
+            |||||| || ||||| || ||||| ||||| || || ||||| ||| | |||||||||
+Sbjct  600  CAGCACGGCGGAAGGCAAAGCGCAGAACCGTCGCGTGGAAATCACCCTCAGCCCGCTG  657
+
+
+
+Lambda      K        H
+    1.33    0.621     1.12 
+
+Gapped
+Lambda      K        H
+    1.28    0.460    0.850 
+
+Effective search space used: 17655904
+
+
+
+Query= NC_016845.1:2330351-2332057 KPHS_23010 [organism=Klebsiella
+pneumoniae subsp. pneumoniae HS11286] [GeneID=11847319]
+[chromosome=]
+
+Length=1707
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+NC_016845.1:c3261678-3259981 KPHS_32750 [organism=Klebsiella pneu...  259     3e-71
+
+
+>NC_016845.1:c3261678-3259981 KPHS_32750 [organism=Klebsiella 
+pneumoniae subsp. pneumoniae HS11286] [GeneID=11848298] [chromosome=]
+Length=1698
+
+ Score = 259 bits (140),  Expect = 3e-71
+ Identities = 280/350 (80%), Gaps = 0/350 (0%)
+ Strand=Plus/Plus
+
+Query  1291  ATCCGCCTTGACAGCATGTCGCTATTCGATACCGGGAAATGGGTACTGAAGCCTGGTTCG  1350
+             |||||||| || |||||| |||| ||||||||||| |||| ||  ||||| || ||||||
+Sbjct  1282  ATCCGCCTCGATAGCATGGCGCTGTTCGATACCGGCAAATCGGCGCTGAAACCGGGTTCG  1341
+
+Query  1351  ACAAAGCGGCTGGTCAGCTCGCTGATGGACATTAAGGCCAGGCCCGGGTGGCTGATCGTG  1410
+             ||||||| |||||| | ||||||| ||| |||||||||||  ||||| ||||||||||||
+Sbjct  1342  ACAAAGCTGCTGGTGAACTCGCTGCTGGGCATTAAGGCCAAACCCGGCTGGCTGATCGTG  1401
+
+Query  1411  GTGGCGGGTCACACCGACAGCGTGGGTGAGGAAAAAGCCAACCAGCTATTGTCGCTGAAA  1470
+             ||||| || || ||||||||| | ||  | || | | |||| || | | | || ||||| 
+Sbjct  1402  GTGGCAGGCCATACCGACAGCATCGGCAACGATAGATCCAATCAACAACTCTCCCTGAAG  1461
+
+Query  1471  CGTGCGGAATCGGTCCGCGACTGGATGCGCGATACCGGCGACGTGCCGGACAGCTGCTTT  1530
+             ||||| ||  ||||||||||||||||||||||||||||||| || ||||| ||||| |||
+Sbjct  1462  CGTGCCGAGGCGGTCCGCGACTGGATGCGCGATACCGGCGATGTTCCGGAGAGCTGTTTT  1521
+
+Query  1531  GCCGTTCAGGGCTATGGCGAAAGCCGACCAATTGCAACAAACGATACGCCGGAAGGCCGT  1590
+             || || |||||||| |||| |||||| ||  | || |  ||||| ||||| || || || 
+Sbjct  1522  GCGGTGCAGGGCTACGGCGCAAGCCGTCCTGTCGCCAGCAACGAGACGCCAGAGGGACGG  1581
+
+Query  1591  GCGCTGAACCGTCGTGTCGAAATCAGTCTGGTGCCGCAGGTAGACGCCTG  1640
+             ||||  || || || || || ||||||||||| ||||||   ||||||||
+Sbjct  1582  GCGCAAAATCGCCGGGTGGAGATCAGTCTGGTCCCGCAGAAGGACGCCTG  1631
+
+
+
+Lambda      K        H
+    1.33    0.621     1.12 
+
+Gapped
+Lambda      K        H
+    1.28    0.460    0.850 
+
+Effective search space used: 46275580
+
+
+
+  Database: gene-sequences2.faa
+    Posted date:  Dec 26, 2024  10:11 AM
+  Number of letters in database: 27,960
+  Number of sequences in database:  34
+
+
+
+Matrix: blastn matrix 1 -2
+Gap Penalties: Existence: 0, Extension: 2.5

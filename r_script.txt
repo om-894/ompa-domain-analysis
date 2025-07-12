@@ -1,0 +1,134 @@
+
+# Reference for tidyverse
+# Wickham, H. et al. (2019) ‘Welcome to the Tidyverse’, Journal of Open Source 
+# Software, 4(43), p. 1686. doi: 10.21105/joss.01686.
+
+install.packages("tidyverse")
+library(tidyverse)
+
+# Reference for igraph
+# Csárdi, G. and Nepusz, T. (2006) ‘The igraph software package for complex 
+# network research’, InterJournal, Complex Systems, 1695. 
+# Available at: https://igraph.org/
+
+install.packages("igraph")
+library(igraph)
+
+########## Chi-Squared Test of independence for Table 1 ##########
+
+# Manually create a matrix of the data
+data_matrix <- matrix(c(45, 49, 49, 101, 55, 7, 5, 6, 11, 7), 
+                      nrow = 5, 
+                      byrow = FALSE)
+
+# Add row and column names to the matrix
+rownames(data_matrix) <- c("A.baumannii", "E.coli", "K.pneumoniae", 
+                           "P.aeruginosa", "V.cholerae")
+colnames(data_matrix) <- c("OmpA_hits", "Unique_OmpA_hits")
+
+# Perform the Chi-Square Test of Independence
+chi_square_test <- chisq.test(data_matrix)
+
+# Print the results
+print(chi_square_test)
+# X-squared = 0.64473, df = 4, p-value = 0.958
+
+########## Create a protein network graph (Figure 2) ##########
+
+# Load BLASTp results
+data <- read.table("/Users/*****/Desktop/genomic_data/ompA-in-col2.txt", 
+                   header = FALSE, sep = "\t")
+
+# Calculate distances
+data$distance <- 1 / data$V12  # V12: bitscore column
+
+# Select relevant columns
+data <- data[, c(1, 2, 13)]  # Query, Subject, Distance
+colnames(data) <- c("protein1", "protein2", "distance")
+
+# Load protein information
+info <- read.csv("/Users/*****/Desktop/genomic_data/BLASTp-protein-info.csv")
+str(info)
+
+# Remove the last 4 irrelevant columns from the info dataset
+info <- info[, 1:(ncol(info) - 4)]
+
+# Create a new column called 'name1' that duplicates 'protein1' to aid renaming later on.
+info$name1 <- info$NCBI.Reference.sequence
+
+# Verify column names in the CSV match your assumptions
+colnames(info) <- c("protein1", "name", "gene", "species", "description", 
+                    "features", "group", "name1")
+
+duplicated(info$protein1)  # Check for duplicates
+
+info <- info[!duplicated(info$protein1), ]  # Remove duplicates
+
+all_vertices <- unique(c(data$protein1, data$protein2))
+missing_vertices <- setdiff(all_vertices, info$protein1)
+
+if (length(missing_vertices) > 0) {
+  additional_rows <- data.frame(
+    protein1 = missing_vertices,
+    name = NA, 
+    gene = NA, 
+    species = NA, 
+    description = NA, 
+    features = NA
+  )
+  info <- rbind(info, additional_rows)
+}
+
+# Remove the last row from the info dataset
+info <- info[-nrow(info), ]
+str(info)
+
+# Create graph
+graph <- graph_from_data_frame(data, directed = FALSE, vertices = info)
+
+# look at the elements in the graph
+summary(graph)
+# IGRAPH f8e991c UN-- 34 160 -- 
+#  attr: name (v/c), gene (v/c), species (v/c), description (v/c), features (v/c),
+#  group (v/c), name1 (v/c), distance (e/n)
+# 34 proteins (=nodes) and 160 matches (=edges)
+
+# set a layout for the graph
+layout <- layout_nicely(graph)
+
+# plot and save graph where node colours are based on protein function ('group')
+plot(graph, layout = layout,
+     vertex.size = 8,
+     vertex.color = as.factor(V(graph)$group),
+     vertex.label = V(graph)$group,
+     vertex.label.cex = 0.3,
+     vertex.label.color = "black")
+
+# Use NCBI protein names as node labels
+plot(
+  graph,                            # The igraph network object to be plotted
+  layout = layout,                  # The layout for node placement
+  vertex.size = 6,                  # Adjusts the diameter of the node circles
+  vertex.color = as.factor(V(graph)$group),  # Colors each node based on group
+  vertex.label = V(graph)$name1,    # The text label for each node 
+  vertex.label.dist = 0.7,          # Distance between each node center and its label
+  vertex.label.degree = -pi/2,      # Positioning angle of labels around the node 
+  vertex.label.cex = 0.8,           # Text size of the labels
+  vertex.label.color = "black"      # Color of the label text
+)
+
+# I have chosen to manually create the figure legend in microsoft powerpoint since
+# It looked more professional compared to the R generated legend
+
+# Make nice colours for the nodes and key
+# species_vec <- c("Structural proteins", "Structural proteins and Lipoproteins", 
+#                 "Transport proteins", "Lipoproteins", "Motility related proteins",
+#                 "Structural and Transport Proteins")
+# color_vec   <- c("darkgreen", "gold", "tomato", "orange", "steelblue", "#0948db")
+
+# Add a legend in the top-right corner
+# legend("topright",
+#       legend = species_vec,
+#       col = color_vec,
+#       pch = 16,     # solid circles
+#       bty = "n")    # no legend box

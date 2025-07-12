@@ -1,0 +1,401 @@
+
+################### SETTING UP ####################
+
+# Log into the server (anonymised username)
+ssh my_username@teaching0.york.ac.uk
+
+# Move to my directory
+cd genomics/students/om894
+
+# Make a directory to store my data in
+mkdir data
+
+# Move into my data directory
+cd data
+
+# Make directories to store gff and fasta files in
+mkdir Genomic.GFF.files
+mkdir Protein.FASTA.files
+
+# If using local machine, use this command (on imac terminal not teaching server) to copy files to the server for GFF files
+scp /Users/olivermcquillan/Desktop/genomic_data/bacteria_genomes/gff/* om894@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/om894/data/Genomic.GFF.files 
+
+# .fasta.faa files
+scp /Users/olivermcquillan/Desktop/genomic_data/bacteria_genomes/fasta/* om894@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/om894/data/Protein.FASTA.files 
+
+# Now to upload the protein domains
+scp /Users/olivermcquillan/Desktop/genomic_data/protein_domains/ om894@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/om894/data/Protein.FASTA.files 
+
+# move back to my_username directory
+cd ..
+
+# make a directory to do my analysis in
+mkdir analysis
+
+# move into my analysis directory
+cd analysis
+
+# make symbolic links to my gff and fasta files
+ln -sf \
+/shared/biology/bioldata1/bl-00087h/students/om894/data/Genomic.GFF.files/* .
+
+ln -sf \
+/shared/biology/bioldata1/bl-00087h/students/om894/data/Protein.FASTA.files/ompA_sequences.fasta.faa
+
+# check that the symbolic links worked
+ls
+
+
+############################### DIAMOND SET-UP ##########################
+
+# load diamond
+module load bio/DIAMOND/2.1.0-GCC-11.3.0
+
+# make diamond databases for each of the fungi genomes
+diamond makedb --in A.baumannii.protein.fasta.faa \
+--db A.baumannii
+
+diamond makedb --in E.coli.protein.fasta.faa \
+--db E.coli
+
+diamond makedb --in K.pneumoniae.protein.fasta.faa \
+--db K.pneumoniae
+
+diamond makedb --in P.aeruginosa.protein.fasta.faa \
+--db P.aeruginosa
+
+diamond makedb --in V.cholerae.protein.fasta.faa \
+--db V.cholerae
+
+################################ ompA domains ################################
+
+# Run DIAMOND blastp analysis using ompA domain protein sequences as a query 
+# and the bacterial species proteomes as reference databases
+
+diamond blastp --query ompA_sequences.fasta.faa \
+--db A.baumannii.dmnd --out ABompA.tsv
+# Reported 45 pairwise alignments, 31 queries aligned.
+
+diamond blastp --query ompA_sequences.fasta.faa \
+--db E.coli.dmnd --out ECompA.tsv
+# Reported 49 pairwise alignments, 47 queries aligned.
+
+diamond blastp --query ompA_sequences.fasta.faa \
+--db K.pneumoniae.dmnd --out KPompA.tsv
+# Reported 49 pairwise alignments, 44 queries aligned.
+
+diamond blastp --query ompA_sequences.fasta.faa \
+--db P.aeruginosa.dmnd --out PAompA.tsv
+Reported 101 pairwise alignments, 48 queries aligned.
+
+diamond blastp --query ompA_sequences.fasta.faa \
+--db V.cholerae.dmnd --out VCompA.tsv
+Reported 55 pairwise alignments, 45 queries aligned.
+
+
+# Look at the alignments
+less ABompA.tsv
+less ECompA.tsv
+less KPompA.tsv
+less PAompA.tsv
+less VCompA.tsv
+
+#### ALTERNTIVE: Run DIAMOND BLASTp and finding unique ompA-like domain containing proteins using a loop
+
+# Define variables for query and databases
+QUERY="ompA_sequences.fasta.faa"
+OUTPUT_DIR="genomics/students/-----/analysis"
+DATABASES=("A.baumannii.dmnd" "E.coli.dmnd" "K.pneumoniae.dmnd" "P.aeruginosa.dmnd" "V.cholerae.dmnd")
+OUTPUT_FILES=("ABompA.tsv" "ECompA.tsv" "KPompA.tsv" "PAompA.tsv" "VCompA.tsv")
+
+# Ensure the output directory exists
+mkdir -p $OUTPUT_DIR
+
+# Run DIAMOND BLASTp for each species
+for i in "${!DATABASES[@]}"; do
+  DB=${DATABASES[$i]}
+  OUTPUT=${OUTPUT_DIR}/${OUTPUT_FILES[$i]}
+  
+  echo "Running DIAMOND BLASTp for $DB..."
+  diamond blastp --query $QUERY --db $DB --out $OUTPUT --outfmt 6 --evalue 1e-5
+done
+
+# Extract unique protein IDs from each output file
+echo "Filtering for unique proteins..."
+for FILE in "${OUTPUT_FILES[@]}"; do
+  INPUT=${OUTPUT_DIR}/$FILE
+  UNIQUE_OUTPUT=${OUTPUT_DIR}/${FILE%.tsv}_unique.txt
+  
+  echo "Processing $INPUT..."
+  cut -f2 $INPUT | sort | uniq > $UNIQUE_OUTPUT
+  
+  # Count unique proteins
+  UNIQUE_COUNT=$(wc -l < $UNIQUE_OUTPUT)
+  echo "Unique proteins in $FILE: $UNIQUE_COUNT"
+done
+
+echo "Processing complete. Unique protein lists saved in $OUTPUT_DIR."
+
+# Check that the alignment worked: 
+# Suppose there are 6 ECOLI (E.coli) sequences in the ompA_sequences.fasta.faa file.
+# then there should be at least 6 ECOLI hits in the ECompA.tsv file
+grep ECOLI ECompA.tsv | wc -l
+# There are 7
+
+# make a file that can be transferred off server later to be used in Table 2.
+grep ECOLI ECompA.tsv > ECompA-only.txt
+
+# Now check whether those proteins from the E. coli dataset also matched to other OmpA domains
+# Get the E. coli proteins from our dataset that matched to ECOLI OmpA domains
+# (column 2) then save as 'ECOLI-hits.txt'
+grep ECOLI ECompA.tsv | cut -f 2 > ECOLI-hits.txt
+
+# Use ECOLI-hits.txt to search for any matches to other OmpA domain sequences from
+# other species
+grep -f ECOLI-hits.txt ECompA.tsv | wc -l
+# If this returns a larger number, it indicates these sequences match multiple OmpA domains
+grep -f ECOLI-hits.txt ECompA.tsv > ECOLI-hits2.txt
+
+# Back to looking at proteins that matched OmpA domains
+# Just select column 2 (i.e. sequences from our study species that matched an OmpA domain)
+# and remove any repeats with the uniq function
+cut -f 2 ECompA.tsv | sort | uniq
+
+# Make a loop to do this for all the *ompA.tsv files and save as 'ompA-matches.txt'
+for f in *ompA.tsv; do
+    cut -f 2 $f | sort | uniq
+done > ompA-matches.txt
+
+# This file represents protein candidate components of outer cell membrane in gram negative bacteria.
+
+# How many are there?
+less ompA-matches.txt | wc -l
+
+
+######################## PAIRWISE MATCHES ################################
+# Perform pairwise Diamond BLASTP analyses between all proteomes
+# Each species proteome is used as a query against the other species proteome database.
+# We do this for all pairs in both directions. 
+
+# Species:
+# A.baumannii
+# E.coli
+# K.pneumoniae
+# P.aeruginosa
+# V.cholerae
+
+####################################### A.baumannii and E.coli
+diamond blastp --query A.baumannii.protein.fasta.faa \
+--db E.coli.dmnd --out Ab-v-Ec.tsv
+# Reported 3163 pairwise alignments, 1543 queries aligned.
+
+diamond blastp --query E.coli.protein.fasta.faa \
+--db A.baumannii.dmnd --out Ec-v-Ab.tsv
+# Reported 3164 pairwise alignments, 1631 queries aligned.
+
+####################################### A.baumannii and K.pneumoniae
+diamond blastp --query A.baumannii.protein.fasta.faa \
+--db K.pneumoniae.dmnd --out Ab-v-Kp.tsv
+# Reported 4268 pairwise alignments, 1730 queries aligned.
+
+diamond blastp --query K.pneumoniae.protein.fasta.faa \
+--db A.baumannii.dmnd --out Kp-v-Ab.tsv
+# Reported 4318 pairwise alignments, 2056 queries aligned.
+
+####################################### A.baumannii and P.aeruginosa
+diamond blastp --query A.baumannii.protein.fasta.faa \
+--db P.aeruginosa.dmnd --out Ab-v-Pa.tsv
+# Reported 5476 pairwise alignments, 2045 queries aligned.
+
+diamond blastp --query P.aeruginosa.protein.fasta.faa \
+--db A.baumannii.dmnd --out Pa-v-Ab.tsv
+# Reported 5513 pairwise alignments, 2549 queries aligned.
+
+####################################### A.baumannii and V.cholerae
+diamond blastp --query A.baumannii.protein.fasta.faa \
+--db V.cholerae.dmnd --out Ab-v-Vc.tsv
+# Reported 2656 pairwise alignments, 1370 queries aligned.
+
+diamond blastp --query V.cholerae.protein.fasta.faa \
+--db A.baumannii.dmnd --out Vc-v-Ab.tsv
+# Reported 2654 pairwise alignments, 1439 queries aligned.
+
+####################################### E.coli and K.pneumoniae
+diamond blastp --query E.coli.protein.fasta.faa \
+--db K.pneumoniae.dmnd --out Ec-v-Kp.tsv
+# Reported 7815 pairwise alignments, 3282 queries aligned.
+
+diamond blastp --query K.pneumoniae.protein.fasta.faa \
+--db E.coli.dmnd --out Kp-v-Ec.tsv
+# Reported 7934 pairwise alignments, 3682 queries aligned.
+
+####################################### E.coli and P.aeruginosa
+diamond blastp --query E.coli.protein.fasta.faa \
+--db P.aeruginosa.dmnd --out Ec-v-Pa.tsv
+# Reported 5827 pairwise alignments, 2173 queries aligned.
+
+diamond blastp --query P.aeruginosa.protein.fasta.faa \
+--db E.coli.dmnd --out Pa-v-Ec.tsv
+# Reported 5878 pairwise alignments, 2538 queries aligned.
+
+####################################### E.coli and V.cholerae
+diamond blastp --query E.coli.protein.fasta.faa \
+--db V.cholerae.dmnd --out Ec-v-Vc.tsv
+# Reported 4335 pairwise alignments, 2122 queries aligned.
+
+diamond blastp --query V.cholerae.protein.fasta.faa \
+--db E.coli.dmnd --out Vc-v-Ec.tsv
+# Reported 4335 pairwise alignments, 2025 queries aligned.
+
+####################################### K.pneumoniae and P.aeruginosa
+diamond blastp --query K.pneumoniae.protein.fasta.faa \
+--db P.aeruginosa.dmnd --out Kp-v-Pa.tsv
+# Reported 7749 pairwise alignments, 2694 queries aligned.
+
+diamond blastp --query P.aeruginosa.protein.fasta.faa \
+--db K.pneumoniae.dmnd --out Pa-v-Kp.tsv
+# Reported 7659 pairwise alignments, 2777 queries aligned.
+
+####################################### K.pneumoniae and V.cholerae
+diamond blastp --query K.pneumoniae.protein.fasta.faa \
+--db V.cholerae.dmnd --out Kp-v-Vc.tsv
+# Reported 5190 pairwise alignments, 2453 queries aligned.
+
+diamond blastp --query V.cholerae.protein.fasta.faa \
+--db K.pneumoniae.dmnd --out Vc-v-Kp.tsv
+# Reported 5083 pairwise alignments, 2094 queries aligned.
+
+####################################### P.aeruginosa and V.cholerae
+diamond blastp --query P.aeruginosa.protein.fasta.faa \
+--db V.cholerae.dmnd --out Pa-v-Vc.tsv
+# Reported 5557 pairwise alignments, 2287 queries aligned.
+
+diamond blastp --query V.cholerae.protein.fasta.faa \
+--db P.aeruginosa.dmnd --out Vc-v-Pa.tsv
+# Reported 5534 pairwise alignments, 1937 queries aligned.
+
+# Now check that all 20 pairwise alignments ran
+# For 5 species, we have (5 * 5) - 5 = 20 pairwise comparisons.
+echo *-v-*.tsv | wc -w
+# Should output 20 if all pairs were completed.
+
+
+####################### ompA PAIRWISE MATCHES ###################
+
+##################### ompA domain matches
+# look at all the *-v-*.tsv files to see which have at least on of the proteins matching a ompA domain
+grep -f ompA-matches.txt *-v-*.tsv
+
+# looks like some of the matches are between two proteins with PAS domains
+# I want to isolate these matches
+# identify matches from the *-v-*.txt files that have a PAS domain in the query
+# do this by making a loop to repeat the awk command on each *-v-*.txt file
+# the awk command creates an array called 'a' where each key is a line from the PAS-matches.txt file
+
+# the awk command then looks at the first column of each file in the for loop ($f) and checks if any of the keys from the array are present
+
+# the output will be all lines from the *-v-*.txt files where the query sequence (column 1) has a ompA domain
+for f in *-v-*.tsv; do awk 'FNR==NR {a[$0]; next} $1 in a' ompA-matches.txt "$f";
+done > ompA-in-col1.txt
+
+
+# use the awk command again to check if any keys from the array are present in the column 2 (target)
+awk 'FNR==NR {a[$0]; next} $2 in a' ompA-matches.txt ompA-in-col1.txt > ompA-in-col2.txt
+
+# check that it worked
+grep -f ompA-matches.txt ompA-in-col2.txt
+
+# check how many there are
+less ompA-in-col2.txt | wc -l
+# 160
+
+########################### PROTEINS OF INTEREST #########################
+
+################################### ompA
+# look at them
+more ompA-in-col2.txt
+
+# find out which proteins are unique by extracting the query and target columns
+(col 1 and 2) and merging them into a new file whilst removing repeats with the
+uniq function
+cut -f 1 ompA-in-col2.txt > ompA-a.txt
+cut -f 2 ompA-in-col2.txt > ompA-b.txt
+cat ompA-a.txt ompA-b.txt | sort | uniq | paste > ompA-uniq.txt
+
+# check how many there are
+less ompA-uniq.txt | wc -l
+
+# 34
+
+# now see which species (spp) they are from and save to a file
+grep -f ompA-uniq.txt *.protein.fasta.faa > ompA-uniq-spp.txt
+
+# look at the file
+less ompA-uniq-spp.txt
+
+# Extract the protein descriptions only (remove the filename prefix).
+awk -F':' '{print $2}' ompA-uniq-spp.txt > ompA-uniq-spp2.txt
+
+# Extract sequences of interest from all *protein.fasta.faa files:
+# Treat each entry as a block separated by ">".
+# Load protein IDs from ompA-uniq-spp2.txt into an array.
+# For each file, print only those entries whose IDs match the array.
+# The resulting sequences (with their descriptions) are saved in ompA-uniq-seq.txt.
+for f in *protein.fasta.faa; do
+    awk 'BEGIN {RS=">"; ORS=""} NR==FNR {a[$1]; next} $1 in a {print ">" $0}' \
+        ompA-uniq-spp2.txt "$f"
+done > ompA-uniq-seq.txt
+
+
+####################### SEARCHING FOR THE GENES ##########################
+# find genes that encode the proteins
+for f in *genomic.gff; do grep -f ompA-uniq.txt $f | cat; done > ompA-uniq-genes.txt
+
+# look at the protein coding sequences in more detail
+# use cut to extract the columns with chromosome, start position, end position and strand
+less ompA-uniq-genes.txt | cut -f 1,4,5,7
+
+# Extract the gene name from ompA-uniq-genes:
+# 1. Use awk with ";" as a separator to isolate the gene name field.
+# 2. Use cut to extract the 9th column containing "ID=cds-GENE_NAME".
+# 3. Use a second awk command with "-" as a separator to print only the gene name.
+awk -F';' '{print $1}' ompA-uniq-genes.txt | cut -f 9 | awk -F'-' '{print $2}' >
+ompA-uniq-gene-names.txt
+
+# Move the gene names to my local machine using secure copy (scp)
+scp *****@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/*****/analysis/ompA-uniq-gene-names.txt /Users/****/Desktop/genomic_data
+
+# search for each gene in GenBank Gene database and download all gene sequences
+# Had to download separately to avoid missing a certain gene for a certain protein
+
+# Move the gene sequences file 'gene-sequences.faa' back to my local machine using secure copy (scp)
+scp /Users/*****/Desktop/genomic_data/gene-sequences.faa *****@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/*****/analysis
+
+
+######################################## BLAST
+
+# remove all the '"' in the file
+sed 's/\"//g' gene-sequences.faa > gene-sequences2.faa
+
+# load BLAST+ module
+module load bio/BLAST+/2.14.0-gompi-2022b
+
+# make a BLAST nucleotide database
+makeblastdb -in gene-sequences2.faa -dbtype nucl
+
+# BLAST against itself
+blastn -query gene-sequences2.faa -db gene-sequences2.faa -out BLASTn-output.txt
+
+# inspect the output
+less BLASTn-output.txt
+
+# Using scp, transfer 'BLASTn-output.txt' back to my local drive
+scp om894@teaching0.york.ac.uk:/shared/biology/bioldata1/bl-00087h/students/om894/analysis/ECOLI-hits2.txt /Users/olivermcquillan/Desktop/genomic_data
+
+# Transfer files off drive for further analysis in R and Excel:
+ompA-in-col2.txt
+ompA-uniq-seq.txt
+ECompA.tsv
+ompA-matches.txt
+ECOLI-hits2.txt
+BLASTn-output.txt
